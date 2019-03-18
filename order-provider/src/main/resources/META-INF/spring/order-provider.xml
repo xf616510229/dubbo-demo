@@ -10,8 +10,8 @@
     <!--当前项目在整个分布式架构里面的唯一名称，计算依赖关系的标签-->
     <dubbo:application name="order-provider" owner="feathers"/>
     
-    <!--dubbo这个服务所要暴露的服务地址所对应的注册中心-->
-    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183" subscribe="true" register="false"/>
+    <!--dubbo这个服务所要暴露的服务地址所对应的注册中心  subscribe="true" register="false" 只订阅配置-->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183" />
     <!--或者这样写-->
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2181,127.0.0.1:2181"/>-->
     <!--或者不使用注册中心, 这样就不会将提供的接口地址存入到zookeeper中，需要消费者使用url消费-->
