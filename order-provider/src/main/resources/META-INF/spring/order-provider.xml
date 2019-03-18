@@ -31,10 +31,12 @@
     <dubbo:protocol name="hessian" port="8090" server="jetty"/>
 
     <!--服务发布的配置，需要暴露的服务接口，可以使用registry="zo1" 指定注册中心-->
+    <!--loadbalance="" 用于指定负载均衡策略-->
+    <!--cluster="failback" 使用cluster指定集群容错策略-->
     <dubbo:service interface="me.feathers.demo.order.OrderService" ref="orderService" version="1.0"/>
     <dubbo:service interface="me.feathers.demo.order.OrderService" ref="orderService2" version="2.0"/>
 
-    <!--<dubbo:provider host="xxxx" />-->
+    <!--<dubbo:provider host="xxxx" timeout="5000"/>-->
     
     <!--暴露的接口的实现-->
     <bean id="orderService" class="me.feathers.demo.order.impl.OrderServiceImpl"/>

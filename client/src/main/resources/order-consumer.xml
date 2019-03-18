@@ -21,11 +21,15 @@
 
     <!--生成一个远程服务的调用代理, 使用注册中心获取url调用-->
     <!--使用protocol指定调用协议-->
+    <!--使用version指定调用版本-->
+    <!--使用cluster="failback" 指定集群容错策略-->
     <dubbo:reference id="orderServices" 
                      interface="me.feathers.demo.order.OrderService" 
                      check="true" 
                      protocol="dubbo" 
-                     version="2.0">
+                     version="2.0"
+                     cluster="failback"
+                     timeout="5000">
         <dubbo:method name="addOrder" async="true"/>
     </dubbo:reference>
     <!--生成一个远程服务的调用代理, 使用地址直连（测试使用）,配置这个不用配置配置中心也可以-->
