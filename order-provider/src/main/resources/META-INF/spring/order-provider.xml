@@ -16,9 +16,15 @@
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2181,127.0.0.1:2181"/>-->
     <!--或者不使用注册中心, 这样就不会将提供的接口地址存入到zookeeper中，需要消费者使用url消费-->
     <!--<dubbo:registry address="N/A"/>-->
+    
+    <!--多注册中心支持-->
+    <!--<dubbo:registry protocol="zookeeper" address="xxx"/>-->
 
     <!--当前服务发布所依赖的协议；webserovice、Thrift、Hessain、http、dubbo-->
     <dubbo:protocol name="dubbo" port="20880"/>
+        
+    <!--dubbo支持多协议同时配置，此处增加hessian协议-->
+    <dubbo:protocol name="hessian" port="8090" server="jetty"/>
 
     <!--服务发布的配置，需要暴露的服务接口-->
     <dubbo:service interface="me.feathers.demo.order.OrderService" ref="orderService"/>
@@ -26,6 +32,7 @@
     <!--暴露的接口的实现-->
     <bean id="orderService" class="me.feathers.demo.order.impl.OrderServiceImpl"/>
     
-    <!--<dubbo:monitor protocol="registry"/>-->
+    <!--添加到monitor监控中心，将监控信息注册到注册中心中-->
+    <dubbo:monitor protocol="registry"/>
 
 </beans>

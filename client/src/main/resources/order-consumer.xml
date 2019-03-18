@@ -8,15 +8,26 @@
            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!--当前项目在整个分布式架构里面的唯一名称，计算依赖关系的标签-->
-    <dubbo:application name="order-provider" owner="feathers"/>
+    <dubbo:application name="order-consumer" owner="feathers"/>
+    
+    <!--声明此项目是一个Consumer，check=true时，没有服务提供者的话，就会报错-->
+    <dubbo:consumer check="true"/>
 
     <!--dubbo这个服务所要暴露的服务地址所对应的注册中心-->
-    <!--<dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"/>-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"/>
+
+    <!--多注册中心支持-->
+    <!--<dubbo:registry protocol="zookeeper" address="xxx"/>-->
 
     <!--生成一个远程服务的调用代理, 使用注册中心获取url调用-->
-    <!--<dubbo:reference id="orderServices" interface="me.feathers.demo.order.OrderService"/>-->
-    <!--生成一个远程服务的调用代理, 使用地址直连（测试使用）-->
-    <dubbo:reference id="orderServices" interface="me.feathers.demo.order.OrderService"
-        url="dubbo://10.0.75.1:20880/me.feathers.demo.order.OrderService"/>
+    <!--使用protocol指定调用协议-->
+    <dubbo:reference id="orderServices" interface="me.feathers.demo.order.OrderService" check="true" protocol="hessian"/>
+    <!--生成一个远程服务的调用代理, 使用地址直连（测试使用）,配置这个不用配置配置中心也可以-->
+    <!--<dubbo:reference id="orderServices" interface="me.feathers.demo.order.OrderService"
+        url="dubbo://10.0.75.1:20880/me.feathers.demo.order.OrderService" check="true"/>-->
+    <!-- check=false 是指启动不检查以来的服务是否正常，默认为true -->
+    <!-- 何时设置为false？  如果出现循环依赖，比如user依赖order，order也依赖user，此种情况下，必须先启动一方，所以至少有一方设置为false -->
 
+    <!--添加到monitor监控中心-->
+    <!--<dubbo:monitor protocol="registry"/>-->
 </beans>
